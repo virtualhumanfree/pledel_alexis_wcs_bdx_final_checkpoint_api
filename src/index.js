@@ -1,5 +1,5 @@
-async function main(){
-    // Your code here
+async function main() {
+  // Your code here
 }
 
 main();
