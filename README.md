@@ -30,12 +30,17 @@ Works by the same way than **Node Typescript** but enforce linting.
 - `npm run lint`: Verify syntaxe error and code quality 
 
 
-
 ## Node Typescript + 3-Tier + mysql: 
 
 A fully debuggeable and linted typescript project with 3 tiers architecture Controller/service/Repository.
 Mysql has been choosen to implement the repository layer.
 Manual promisify is also present inside DbHelper
+
+
+## Node Typescript + Abstract 3-tier + mysql: 
+
+A fully debuggeable and linted typescript project with an abstract 3-tiers architecture Controller/service/Repository.
+Avoid almost all dupplication
 
 
 
