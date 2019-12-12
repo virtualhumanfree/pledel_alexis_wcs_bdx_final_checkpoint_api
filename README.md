@@ -31,10 +31,12 @@ Works by the same way than **Node Typescript** but enforce linting.
 
 
 
-## Node Typescript + mysql: 
+## Node Typescript + 3-Tier + mysql: 
 
 A fully debuggeable and linted typescript project with 3 tiers architecture Controller/service/Repository.
 Mysql has been choosen to implement the repository layer.
 Manual promisify is also present inside DbHelper
+
+
 
 
