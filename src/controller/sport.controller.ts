@@ -1,5 +1,7 @@
+import { Sport } from './../models/sport';
 import { SportService } from '../services/sport.service';
-import express, { Router, Request, Response, Application } from 'express';
+import { Router, Request, Response, Application } from 'express';
+import { AbstractController } from '../core/abstract.controller';
 
 /**
  * Ce controller vous servira de modèle pour construire vos différent controller
@@ -8,14 +10,21 @@ import express, { Router, Request, Response, Application } from 'express';
  *
  * @param app l'application express
  */
-export const SportController = (app: Application) => {
 
-    const sportsRouter: Router = express.Router();
-    const sportService = new SportService();
+export class SportController extends AbstractController<Sport> {
+    protected service = new SportService();
 
-    sportsRouter.get('/', (req: Request, res: Response) => {
-        res.send(sportService.getAll());
-    });
+    constructor(app: Application) {
+        super('sports', app);
+    }
 
-    app.use('/sport', sportsRouter);
-};
+    protected setupAdditionalRoute(router: Router): Router {
+
+        router.get('/ttt', async (req: Request, res: Response) => {
+            const result = await this.service.getAll();
+            res.send(result);
+        });
+
+        return router;
+    }
+}

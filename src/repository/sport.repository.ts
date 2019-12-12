@@ -1,22 +1,14 @@
-import { DbHandler } from './../core/db.handler';
+import { AbstractRepository } from '../core/abstract.repository';
 import { Sport } from '../models/sport';
 /**
- * Cette classe est un repository
- * C'est ici qu'on met tout les accès à la bdd
- * Attention, aucune logique javascript ne doit apparaitre ici.
- * Il s'agit seulement de la couche de récupération des données (requete sql)
+ * Notre répository hérite de AbstractRepository
+ * Il récupère ainsi toutes les methode classique (getALL, ...)
+ * On doit quand même définir le nom de la table
+ * Ainsi que le type de l'objet que
  */
-export class SportRepository {
-    private db: DbHandler;
 
-    private GET_ALL = 'SELECT * FROM document;';
-
-    constructor() {
-        this.db =  DbHandler.getInstance();
-    }
-
-    async findAll(): Promise<Sport[]> {
-        return this.db.query(this.GET_ALL) as Promise<Sport[]>;
-    }
+export class SportRepository extends AbstractRepository<Sport> {
+    // Le nom de la table qui sera utilisé au niveau de la classe abstraite
+    protected TABLE_NAME = 'sport';
 
 }
