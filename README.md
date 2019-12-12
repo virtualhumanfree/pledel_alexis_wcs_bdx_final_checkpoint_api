@@ -28,3 +28,13 @@ The following scripts launch respectivly:
 
 Works by the same way than **Node Typescript** but enforce linting.
 - `npm run lint`: Verify syntaxe error and code quality 
+
+
+
+## Node Typescript + mysql: 
+
+A fully debuggeable and linted typescript project with 3 tiers architecture Controller/service/Repository.
+Mysql has been choosen to implement the repository layer.
+Manual promisify is also present inside DbHelper
+
+
