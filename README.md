@@ -43,5 +43,11 @@ A fully debuggeable and linted typescript project with an abstract 3-tiers archi
 Avoid almost all dupplication
 
 
+## Node Typescript + typeorm: 
+
+A fully debuggeable and linted typescript and typeorm prepared project. 
+The boilerplate come with several example of entity and repository 
+
+
 
 
