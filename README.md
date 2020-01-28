@@ -1,5 +1,8 @@
 # node-template
-This repository give you a starting point with Node JS projects for the following cases: 
+It's a branchs organize repository.
+It will give you a starting point with Node JS projects for the following cases:
+(To use it, just fork it, clone your fork and select one of the following branch)
+
 
 ## Node Javascript: Run/Dev/Debug
 
