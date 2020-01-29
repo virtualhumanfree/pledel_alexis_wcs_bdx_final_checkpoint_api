@@ -16,7 +16,7 @@ export class Photo {
     @Column({type: 'varchar', nullable: false})
     description!: string;
 
-    @OneToOne(type => Lieu, lieu => lieu.photo)
+    @OneToOne(type => Lieu, lieu => lieu.photo, {cascade: true, eager: true})
     @JoinColumn()
     lieu!: Lieu;
 

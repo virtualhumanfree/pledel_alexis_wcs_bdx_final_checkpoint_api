@@ -21,11 +21,9 @@ export class Lieu {
     postcode!: string;
 
     @OneToOne(type => Photo, photo => photo.lieu)
-    @JoinColumn()
     photo!: Photo;
 
-    @OneToOne(type => Event, event => event.lieu)
-    @JoinColumn()
+    @OneToOne(type => Event, event => event.lieu, { nullable: true })
     event!: Event;
 
     constructor(input: Lieu) {

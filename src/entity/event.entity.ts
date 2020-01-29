@@ -27,7 +27,6 @@ export class Event {
     artists!: Artist[];
 
     @OneToOne(type => Lieu, lieu => lieu.event)
-    @JoinColumn()
     lieu!: Lieu;
 
     @OneToMany(

@@ -1,5 +1,12 @@
+import { Ticket } from './../entity/ticket.entity';
+import { Numero } from './../entity/numero.entity';
+import { Lieu } from './../entity/lieu.entity';
+import { Artist } from './../entity/artist.entity';
+import { Animal } from './../entity/animal.enity';
 import { createConnection } from 'typeorm';
 import { User } from '../entity/user.entity';
+import { Event } from './../entity/event.entity';
+import { Photo } from './../entity/photo.entity';
 
 export default async () => {
 
@@ -12,6 +19,13 @@ await createConnection({
     database: process.env.HACKATHON_API_DB_DATABASE,
     entities: [
         User,
+        Animal,
+        Artist,
+        Event,
+        Lieu,
+        Numero,
+        Photo,
+        Ticket
     ],
     synchronize: true,
 });

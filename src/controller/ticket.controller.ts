@@ -1,5 +1,5 @@
 import express, { Router, Request, Response, Application } from 'express';
-import { UserService } from '../services/user.service';
+import { TicketService } from '../services/ticket.service';
 
 /**
  * Ce controller vous servira de modèle pour construire vos différent controller
@@ -8,19 +8,19 @@ import { UserService } from '../services/user.service';
  *
  * @param app l'application express
  */
-export const UserController = (app: Application) => {
+export const TicketController = (app: Application) => {
 
-    const userRouter: Router = express.Router();
-    const userService = new UserService();
+    const ticketRouter: Router = express.Router();
+    const ticketService = new TicketService();
 
-    userRouter.get('/', async (req: Request, res: Response) => {
-        res.send(await userService.getAll());
+    ticketRouter.get('/', async (req: Request, res: Response) => {
+        res.send(await ticketService.getAll());
     });
 
-    userRouter.post('/', async (req: Request, res: Response) => {
-        const user = req.body;
-        res.send(await userService.create(user));
+    ticketRouter.post('/', async (req: Request, res: Response) => {
+        const ticket = req.body;
+        res.send(await ticketService.create(ticket));
     });
 
-    app.use('/users', userRouter);
+    app.use('/tickets', ticketRouter);
 };
