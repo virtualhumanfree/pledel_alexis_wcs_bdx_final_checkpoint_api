@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Index, CreateDateColumn } from 'typeorm';
+
+export enum UserRole {
+    USER = 'user',
+    ADMIN = 'admin',
+  }
 
 @Entity('user')
 export class User {
@@ -7,11 +12,35 @@ export class User {
     id!: number;
 
     @Column({type: 'varchar', length: 25, nullable: false})
-    title!: string;
+    firstname!: string;
+
+    @Column({type: 'varchar', length: 25, nullable: false})
+    lastname!: string;
+
+    @Column({})
+    password!: string;
 
     @Column({type: 'varchar', length: 15, nullable: false})
-    color!: string;
+    tel!: string;
 
-    @Column({type: 'varchar', length: 255, nullable: false})
-    icon!: string;
+    @Index({ unique: true })
+    @Column()
+    email!: string;
+
+    @Column({
+      type: 'enum',
+      enum: UserRole,
+      default: UserRole.ADMIN,
+    })
+    role!: UserRole;
+
+    @CreateDateColumn()
+    createdAt!: Date;
+
+    @CreateDateColumn()
+    updateAt!: Date;
+
+    constructor(input: User) {
+        Object.assign(this, input);
+      }
 }
