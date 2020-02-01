@@ -20,6 +20,26 @@ export const UserController = (app: Application) => {
         res.send(await userService.getAll());
     });
 
+    // Sur l'URL "me" dans "users", on récupère l'utilisateur associé à l'ID qu'il y a dans le Token
+    userRouter.get('/me', async (req: Request, res: Response) => {
+        let user = (req.body);
+        console.log(user);
+
+        // console.log((req as any).user);
+        // console.log((req as any).user.id);
+
+        try {
+            user = await userService.getById(user.id);
+        } catch (error) {
+            console.log(error);
+        }
+
+        if (!user) {
+            res.status(404).send('Aucun utilisateur trouvé pour ce token');
+        }
+        res.send(user);
+    });
+
     // userRouter.post('/', async (req: Request, res: Response) => {
     //     const user = req.body;
     //     res.send(await userService.create(user));

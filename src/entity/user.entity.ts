@@ -27,9 +27,6 @@ export class User {
     @Column()
     email!: string;
 
-    @Column({ default: false })
-  isActive: boolean = false;
-
     @Column({
       type: 'enum',
       enum: UserRole,
@@ -43,7 +40,11 @@ export class User {
     @CreateDateColumn()
     updateAt!: Date;
 
+    @Column()
+    isActive: boolean;
+
     constructor(input: User) {
         Object.assign(this, input);
+        this.isActive = false;
       }
 }

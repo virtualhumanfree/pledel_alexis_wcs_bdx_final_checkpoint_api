@@ -15,6 +15,14 @@ export class UserService {
         return await this.repository.find();
     }
 
+    getById(id: number) {
+        const getId = this.repository.findOne(id);
+        if (!getId) {
+          throw new Error(`l'objet d'id ${id} n'existe pas `);
+        }
+        return getId;
+      }
+
     async userActivation(user: User) {
         user.isActive = true;
         await this.repository.update(user.id, user);
