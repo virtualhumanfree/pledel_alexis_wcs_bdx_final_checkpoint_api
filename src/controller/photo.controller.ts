@@ -1,3 +1,6 @@
+import { UserRole } from './../entity/user.entity';
+import { checkRole } from './../middleware/check-role-middleware';
+import { attachCurrentUser } from './../middleware/attachCurrentUser-middleware';
 import express, { Router, Request, Response, Application } from 'express';
 import { PhotoService } from '../services/photo.service';
 
@@ -21,6 +24,11 @@ export const PhotoController = (app: Application) => {
         const photo = req.body;
         res.send(await photoService.create(photo));
     });
+
+    photoRouter.put('/:id', attachCurrentUser, checkRole([ UserRole.ADMIN, UserRole.USER ]), async (req: Request, res: Response) => {
+        const obj = await photoService.update(parseInt(req.params.id, 10), req.body);
+        res.send(obj);
+      });
 
     app.use('/photos', photoRouter);
 };

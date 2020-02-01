@@ -1,3 +1,6 @@
+import { UserRole } from './../entity/user.entity';
+import { checkRole } from './../middleware/check-role-middleware';
+import { attachCurrentUser } from './../middleware/attachCurrentUser-middleware';
 import express, { Router, Request, Response, Application } from 'express';
 import { NumeroService } from '../services/numero.service';
 
@@ -21,6 +24,11 @@ export const NumeroController = (app: Application) => {
         const numero = req.body;
         res.send(await numeroService.create(numero));
     });
+
+    numeroRouter.put('/:id', attachCurrentUser, checkRole([ UserRole.ADMIN, UserRole.USER ]), async (req: Request, res: Response) => {
+        const obj = await numeroService.update(parseInt(req.params.id, 10), req.body);
+        res.send(obj);
+      });
 
     app.use('/numeros', numeroRouter);
 };

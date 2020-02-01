@@ -2,7 +2,7 @@ import { LieuRepository } from './../repository/lieu.repository';
 import { LieuService } from './lieu.service';
 import { Photo } from './../entity/photo.entity';
 import { PhotoRepository } from '../repository/photo.repository';
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, ObjectLiteral } from 'typeorm';
 /**
  * Cette classe est un service
  * C'est ici que l'ensemble de la logique consernant les psort doit apparaitre.
@@ -18,6 +18,15 @@ export class PhotoService {
     async getAll() {
         return await this.repository.find();
     }
+
+    async update(idElement: number, element: ObjectLiteral) {
+        const one = await this.repository.findOne(idElement);
+        if (!one) {
+          throw new Error(`l'objet d'id ${idElement} n'existe pas `);
+        }
+        this.repository.merge(one, element);
+        return this.repository.save(one , element);
+      }
 
     async create(photo: Photo) {
         const lieuFind = await this.lieuRepository.findOne(photo.lieu.id);

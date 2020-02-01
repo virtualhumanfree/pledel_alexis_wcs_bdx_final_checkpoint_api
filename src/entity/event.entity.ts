@@ -4,7 +4,7 @@ import { Numero } from './numero.entity';
 import { Column, PrimaryGeneratedColumn, Entity, ManyToOne, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Lieu } from './lieu.entity';
 
-@Entity('evnet')
+@Entity('event')
 export class Event {
 
     @PrimaryGeneratedColumn({ type: 'int'})
@@ -26,12 +26,13 @@ export class Event {
         artist => artist.event)
     artists!: Artist[];
 
-    @OneToOne(type => Lieu, lieu => lieu.event)
+    @OneToOne(type => Lieu, lieu => lieu.event, { eager: true })
+    @JoinColumn()
     lieu!: Lieu;
 
     @OneToMany(
         type => Ticket,
-        ticket => ticket.event)
+        ticket => ticket.event, { nullable: true})
     tickets!: Ticket[];
 
     constructor(input: Event) {

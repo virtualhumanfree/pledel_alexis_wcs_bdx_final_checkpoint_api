@@ -1,3 +1,4 @@
+import { AuthController } from './controller/auth.controller';
 import { TicketController } from './controller/ticket.controller';
 import { PhotoController } from './controller/photo.controller';
 import { NumeroController } from './controller/numero.controller';
@@ -28,6 +29,7 @@ async function startServer() {
     NumeroController(app);
     PhotoController(app);
     TicketController(app);
+    AuthController(app);
 
     // Démarrage du serveur une fois que tout est correctement init
     app.listen(3000, () => console.log('Express server is running'));

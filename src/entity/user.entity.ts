@@ -27,6 +27,9 @@ export class User {
     @Column()
     email!: string;
 
+    @Column({ default: false })
+  isActive: boolean = false;
+
     @Column({
       type: 'enum',
       enum: UserRole,

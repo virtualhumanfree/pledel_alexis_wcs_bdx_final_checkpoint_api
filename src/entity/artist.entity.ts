@@ -2,7 +2,7 @@ import { Animal } from './animal.enity';
 import { Event } from './event.entity';
 import { Numero } from './numero.entity';
 import { Photo } from './photo.entity';
-import { Column, PrimaryGeneratedColumn, Entity, OneToMany, ManyToOne } from 'typeorm';
+import { Column, PrimaryGeneratedColumn, Entity, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity('artist')
 export class Artist {

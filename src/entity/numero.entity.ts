@@ -20,7 +20,7 @@ export class Numero {
 
     @OneToMany(
         type => Photo,
-        photo => photo.numero)
+        photo => photo.numero, {eager: true})
       photos!: Photo[];
 
     @ManyToOne(
@@ -30,7 +30,7 @@ export class Numero {
 
     @OneToMany(
         type => Artist,
-        artist => artist.numero)
+        artist => artist.numero, {eager: true})
     artists!: Artist[];
 
     constructor(input: Numero) {

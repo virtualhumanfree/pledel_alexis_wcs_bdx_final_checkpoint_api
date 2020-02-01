@@ -1,3 +1,6 @@
+import { UserRole } from './../entity/user.entity';
+import { checkRole } from './../middleware/check-role-middleware';
+import { attachCurrentUser } from './../middleware/attachCurrentUser-middleware';
 import express, { Router, Request, Response, Application } from 'express';
 import { LieuService } from '../services/lieu.service';
 
@@ -21,6 +24,11 @@ export const LieuController = (app: Application) => {
         const lieu = req.body;
         res.send(await lieuService.create(lieu));
     });
+
+    lieuRouter.put('/:id', attachCurrentUser, checkRole([ UserRole.ADMIN, UserRole.USER ]), async (req: Request, res: Response) => {
+        const obj = await lieuService.update(parseInt(req.params.id, 10), req.body);
+        res.send(obj);
+      });
 
     app.use('/lieu', lieuRouter);
 };

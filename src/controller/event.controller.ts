@@ -1,3 +1,6 @@
+import { UserRole } from './../entity/user.entity';
+import { checkRole } from './../middleware/check-role-middleware';
+import { attachCurrentUser } from './../middleware/attachCurrentUser-middleware';
 import express, { Router, Request, Response, Application } from 'express';
 import { EventService } from '../services/event.service';
 
@@ -22,5 +25,10 @@ export const EventController = (app: Application) => {
         res.send(await eventService.create(event));
     });
 
-    app.use('/lieux', eventRouter);
+    eventRouter.put('/:id', attachCurrentUser, checkRole([ UserRole.ADMIN, UserRole.USER ]), async (req: Request, res: Response) => {
+        const obj = await eventService.update(parseInt(req.params.id, 10), req.body);
+        res.send(obj);
+      });
+
+    app.use('/events', eventRouter);
 };

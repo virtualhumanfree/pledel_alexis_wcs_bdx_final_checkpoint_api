@@ -13,7 +13,7 @@ export class Photo {
     @Column({type: 'varchar', nullable: false})
     title!: string;
 
-    @Column({type: 'varchar', nullable: false})
+    @Column({ nullable: false})
     description!: string;
 
     @OneToOne(type => Lieu, lieu => lieu.photo, {cascade: true, eager: true})

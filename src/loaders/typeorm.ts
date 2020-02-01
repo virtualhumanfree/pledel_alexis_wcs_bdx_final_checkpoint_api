@@ -1,3 +1,4 @@
+import { Token } from './../entity/token.entity';
 import { Ticket } from './../entity/ticket.entity';
 import { Numero } from './../entity/numero.entity';
 import { Lieu } from './../entity/lieu.entity';
@@ -15,7 +16,7 @@ await createConnection({
     host: process.env.HACKATHON_API_DB_HOST,
     port: parseInt(process.env.HACKATHON_API_DB_PORT || '3306', 10),
     username: process.env.HACKATHON_API_DB_USER,
-    password: process.env.HACKATHON_API_SOLAR_DB_PASSWORD, 
+    password: process.env.HACKATHON_API_SOLAR_DB_PASSWORD,
     database: process.env.HACKATHON_API_DB_DATABASE,
     entities: [
         User,
@@ -25,7 +26,8 @@ await createConnection({
         Lieu,
         Numero,
         Photo,
-        Ticket
+        Ticket,
+        Token,
     ],
     synchronize: true,
 });

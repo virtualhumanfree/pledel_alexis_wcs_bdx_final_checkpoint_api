@@ -1,3 +1,6 @@
+import { UserRole } from './../entity/user.entity';
+import { checkRole } from './../middleware/check-role-middleware';
+import { attachCurrentUser } from './../middleware/attachCurrentUser-middleware';
 import express, { Router, Request, Response, Application } from 'express';
 import { UserService } from '../services/user.service';
 
@@ -17,9 +20,22 @@ export const UserController = (app: Application) => {
         res.send(await userService.getAll());
     });
 
-    userRouter.post('/', async (req: Request, res: Response) => {
-        const user = req.body;
-        res.send(await userService.create(user));
+    // userRouter.post('/', async (req: Request, res: Response) => {
+    //     const user = req.body;
+    //     res.send(await userService.create(user));
+    // });
+    userRouter.post('/', attachCurrentUser, checkRole([UserRole.ADMIN, UserRole.USER]), async (req: Request, res: Response) => {
+        res.send(await userService.add(req.body));
+    });
+
+    userRouter.put('/:id', attachCurrentUser, checkRole([UserRole.ADMIN, UserRole.USER]), async (req: Request, res: Response) => {
+        const obj = await userService.update(parseInt(req.params.id, 10), req.body);
+        res.send(obj);
+    });
+
+    userRouter.delete('/:id', attachCurrentUser, checkRole([UserRole.ADMIN, UserRole.USER]), async (req: Request, res: Response) => {
+        await userService.delete(parseInt(req.params.id, 10));
+        res.sendStatus(204);
     });
 
     app.use('/users', userRouter);

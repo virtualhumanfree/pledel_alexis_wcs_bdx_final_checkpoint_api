@@ -1,5 +1,5 @@
 import { User } from './../entity/user.entity';
-import {EntityRepository, Repository} from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 /**
  * Cette classe est un repository
  * C'est ici qu'on met tout les accès à la bdd
@@ -9,5 +9,10 @@ import {EntityRepository, Repository} from 'typeorm';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
+
+    async findByEmail(email: string) {
+        return this.findOne({ email });
+
+    }
 
 }

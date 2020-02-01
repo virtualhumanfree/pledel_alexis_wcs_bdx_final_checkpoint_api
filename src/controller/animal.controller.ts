@@ -1,3 +1,6 @@
+import { UserRole } from './../entity/user.entity';
+import { checkRole } from './../middleware/check-role-middleware';
+import { attachCurrentUser } from './../middleware/attachCurrentUser-middleware';
 import express, { Router, Request, Response, Application } from 'express';
 import { AnimalService } from '../services/animal.service';
 
@@ -21,6 +24,11 @@ export const AnimalController = (app: Application) => {
         const animal = req.body;
         res.send(await animalService.create(animal));
     });
+
+    animalRouter.put('/:id', attachCurrentUser, checkRole([ UserRole.ADMIN, UserRole.USER ]), async (req: Request, res: Response) => {
+        const obj = await animalService.update(parseInt(req.params.id, 10), req.body);
+        res.send(obj);
+      });
 
     app.use('/animals', animalRouter);
 };
