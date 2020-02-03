@@ -19,6 +19,10 @@ export class ArtistService {
         return await this.repository.find({ relations: ['photos', 'animal', 'numero', 'event'] });
     }
 
+    async getArtistNotAssign() {
+      return await this.repository.find({ where : { numero: null } });
+  }
+
     async getById(artisteId: number) {
         return await this.repository.findOne( { id : artisteId } );
     }
@@ -36,5 +40,9 @@ export class ArtistService {
             // artist = this.repository.create(artist);
             return await this.repository.save(artist);
     }
+
+    delete(id: number) {
+      return this.repository.delete(id);
+  }
 
 }

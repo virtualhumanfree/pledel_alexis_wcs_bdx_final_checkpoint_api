@@ -1,3 +1,4 @@
+import { Event } from './../entity/event.entity';
 import { UserRole } from './../entity/user.entity';
 import { checkRole } from './../middleware/check-role-middleware';
 import { attachCurrentUser } from './../middleware/attachCurrentUser-middleware';
@@ -21,14 +22,19 @@ export const EventController = (app: Application) => {
     });
 
     eventRouter.post('/', async (req: Request, res: Response) => {
-        const event = req.body;
+        const event = new Event(req.body);
         res.send(await eventService.create(event));
     });
 
-    eventRouter.put('/:id', attachCurrentUser, checkRole([ UserRole.ADMIN, UserRole.USER ]), async (req: Request, res: Response) => {
+    eventRouter.put('/:id', attachCurrentUser, checkRole([UserRole.ADMIN, UserRole.USER]), async (req: Request, res: Response) => {
         const obj = await eventService.update(parseInt(req.params.id, 10), req.body);
         res.send(obj);
-      });
+    });
+
+    eventRouter.delete('/:id', async (req: Request, res: Response) => {
+        await eventService.delete(parseInt(req.params.id, 10));
+        res.sendStatus(204);
+    });
 
     app.use('/events', eventRouter);
 };

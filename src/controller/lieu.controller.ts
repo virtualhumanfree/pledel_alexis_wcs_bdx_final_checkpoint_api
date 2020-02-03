@@ -20,6 +20,10 @@ export const LieuController = (app: Application) => {
         res.send(await lieuService.getAll());
     });
 
+    lieuRouter.get('/lieuNotAssign', async (req: Request, res: Response) => {
+        res.send(await lieuService.getLieuxNotAssign());
+    });
+
     lieuRouter.post('/', async (req: Request, res: Response) => {
         const lieu = req.body;
         res.send(await lieuService.create(lieu));

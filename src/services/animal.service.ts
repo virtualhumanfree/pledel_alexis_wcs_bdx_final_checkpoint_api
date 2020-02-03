@@ -14,6 +14,10 @@ export class AnimalService {
         return await this.repository.find({ relations: ['artists', 'photos']});
     }
 
+    async getAnimalNotAssign() {
+      return await this.repository.find({ where : { artists: null } });
+  }
+
     async update(idElement: number, element: ObjectLiteral) {
         const one = await this.repository.findOne(idElement);
         if (!one) {
@@ -27,5 +31,9 @@ export class AnimalService {
         animal = this.repository.create(animal);
         return await this.repository.save(animal);
     }
+
+    delete(id: number) {
+      return this.repository.delete(id);
+  }
 
 }

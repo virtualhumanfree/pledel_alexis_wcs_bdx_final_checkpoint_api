@@ -24,8 +24,12 @@ export class EventService {
       }
 
     async create(event: any) {
-        // event = this.repository.create(event);
+        event = this.repository.create(event);
         return await this.repository.save(event);
     }
+
+    delete(id: number) {
+      return this.repository.delete(id);
+  }
 
 }

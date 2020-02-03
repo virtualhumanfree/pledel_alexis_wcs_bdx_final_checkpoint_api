@@ -14,6 +14,10 @@ export class LieuService {
         return await this.repository.find( { relations: ['photo', 'event'] } );
     }
 
+    async getLieuxNotAssign() {
+        return await this.repository.find({ where : { event: null } });
+    }
+
     async getById(lieuId: number) {
         return await this.repository.findOne( { id : lieuId } );
     }

@@ -20,15 +20,24 @@ export const AnimalController = (app: Application) => {
         res.send(await animalService.getAll());
     });
 
+    animalRouter.get('/animalNotAssign', async (req: Request, res: Response) => {
+        res.send(await animalService.getAnimalNotAssign());
+    });
+
     animalRouter.post('/', async (req: Request, res: Response) => {
         const animal = req.body;
         res.send(await animalService.create(animal));
     });
 
-    animalRouter.put('/:id', attachCurrentUser, checkRole([ UserRole.ADMIN, UserRole.USER ]), async (req: Request, res: Response) => {
+    animalRouter.put('/:id', attachCurrentUser, checkRole([UserRole.ADMIN, UserRole.USER]), async (req: Request, res: Response) => {
         const obj = await animalService.update(parseInt(req.params.id, 10), req.body);
         res.send(obj);
-      });
+    });
+
+    animalRouter.delete('/:id', async (req: Request, res: Response) => {
+        await animalService.delete(parseInt(req.params.id, 10));
+        res.sendStatus(204);
+    });
 
     app.use('/animals', animalRouter);
 };

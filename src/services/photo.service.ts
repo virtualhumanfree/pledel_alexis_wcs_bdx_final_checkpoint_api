@@ -19,6 +19,10 @@ export class PhotoService {
         return await this.repository.find();
     }
 
+    async getPhotoNotAssign() {
+        return await this.repository.find({ where : { artist: null, numero: null, animal: null } });
+    }
+
     async update(idElement: number, element: ObjectLiteral) {
         const one = await this.repository.findOne(idElement);
         if (!one) {
@@ -39,5 +43,9 @@ export class PhotoService {
             photo = this.repository.create(photo);
             return await this.repository.save(photo);
         }
+    }
+
+    delete(id: number) {
+        return this.repository.delete(id);
     }
 }

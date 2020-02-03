@@ -20,15 +20,24 @@ export const PhotoController = (app: Application) => {
         res.send(await photoService.getAll());
     });
 
+    photoRouter.get('/photoNotAssign', async (req: Request, res: Response) => {
+        res.send(await photoService.getPhotoNotAssign());
+    });
+
     photoRouter.post('/', async (req: Request, res: Response) => {
         const photo = req.body;
         res.send(await photoService.create(photo));
     });
 
-    photoRouter.put('/:id', attachCurrentUser, checkRole([ UserRole.ADMIN, UserRole.USER ]), async (req: Request, res: Response) => {
+    photoRouter.put('/:id', attachCurrentUser, checkRole([UserRole.ADMIN, UserRole.USER]), async (req: Request, res: Response) => {
         const obj = await photoService.update(parseInt(req.params.id, 10), req.body);
         res.send(obj);
-      });
+    });
+
+    photoRouter.delete('/:id', async (req: Request, res: Response) => {
+        await photoService.delete(parseInt(req.params.id, 10));
+        res.sendStatus(204);
+    });
 
     app.use('/photos', photoRouter);
 };

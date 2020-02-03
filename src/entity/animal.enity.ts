@@ -19,7 +19,7 @@ export class Animal {
 
     @OneToMany(
       type => Artist,
-      artist => artist.animal)
+      artist => artist.animal, { nullable : false })
     artists!: Artist[];
 
     @OneToMany(

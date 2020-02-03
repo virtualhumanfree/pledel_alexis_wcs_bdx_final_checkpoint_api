@@ -28,4 +28,8 @@ export class NumeroService {
         return await this.repository.save(numero);
     }
 
+    delete(id: number) {
+      return this.repository.delete(id);
+  }
+
 }

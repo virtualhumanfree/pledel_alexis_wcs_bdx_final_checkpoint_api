@@ -20,15 +20,24 @@ export const ArtistController = (app: Application) => {
         res.send(await artistService.getAll());
     });
 
+    artistRouter.get('/artistNotAssign', async (req: Request, res: Response) => {
+        res.send(await artistService.getArtistNotAssign());
+    });
+
     artistRouter.post('/', async (req: Request, res: Response) => {
         const artist = req.body;
         res.send(await artistService.create(artist));
     });
 
-    artistRouter.put('/:id', attachCurrentUser, checkRole([ UserRole.ADMIN, UserRole.USER ]), async (req: Request, res: Response) => {
+    artistRouter.put('/:id', attachCurrentUser, checkRole([UserRole.ADMIN, UserRole.USER]), async (req: Request, res: Response) => {
         const obj = await artistService.update(parseInt(req.params.id, 10), req.body);
         res.send(obj);
-      });
+    });
+
+    artistRouter.delete('/:id', async (req: Request, res: Response) => {
+        await artistService.delete(parseInt(req.params.id, 10));
+        res.sendStatus(204);
+    });
 
     app.use('/artists', artistRouter);
 };

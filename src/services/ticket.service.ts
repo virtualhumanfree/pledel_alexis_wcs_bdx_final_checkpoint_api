@@ -28,4 +28,8 @@ export class TicketService {
         return await this.repository.save(ticket);
     }
 
+    delete(id: number) {
+      return this.repository.delete(id);
+  }
+
 }
