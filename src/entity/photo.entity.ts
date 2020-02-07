@@ -22,12 +22,14 @@ export class Photo {
 
     @ManyToOne(
         type => Artist,
-        artist => artist.photos, { nullable: true })
+        artist => artist.photos, { onDelete: 'CASCADE', onUpdate: 'CASCADE', cascade: true, nullable: true })
+        @JoinColumn()
     artist!: Artist;
 
     @ManyToOne(
         type => Numero,
-        numero => numero.photos, { nullable: true })
+        numero => numero.photos, { onDelete: 'CASCADE', onUpdate: 'CASCADE', cascade: true, nullable: true })
+    @JoinColumn()
     numero!: Numero;
 
     @ManyToOne(

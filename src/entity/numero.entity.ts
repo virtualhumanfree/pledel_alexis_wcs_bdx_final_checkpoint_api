@@ -30,7 +30,7 @@ export class Numero {
 
     @OneToMany(
         type => Artist,
-        artist => artist.numero, {eager: true})
+        artist => artist.numero, { eager: true})
     artists!: Artist[];
 
     constructor(input: Numero) {

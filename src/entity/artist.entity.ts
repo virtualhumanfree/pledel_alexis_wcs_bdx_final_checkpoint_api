@@ -29,7 +29,7 @@ export class Artist {
 
     @ManyToOne(
         type => Numero,
-        numero => numero.artists, { nullable: true })
+        numero => numero.artists, { onDelete: 'CASCADE', onUpdate: 'CASCADE', cascade: true, nullable: true })
         numero!: Numero;
 
     @ManyToOne(

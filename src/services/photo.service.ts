@@ -33,16 +33,16 @@ export class PhotoService {
       }
 
     async create(photo: Photo) {
-        const lieuFind = await this.lieuRepository.findOne(photo.lieu.id);
-        if (lieuFind?.id === undefined) {
-            const lieu = this.repository.create(photo.lieu);
-            await this.repository.save(lieu);
+        // const lieuFind = await this.lieuRepository.findOne(photo.lieu.id);
+        // if (lieuFind?.id === undefined) {
+        //     const lieu = this.repository.create(photo.lieu);
+        //     await this.repository.save(lieu);
+        //     photo = this.repository.create(photo);
+        //     return await this.repository.save(photo);
+        // } else {
             photo = this.repository.create(photo);
             return await this.repository.save(photo);
-        } else {
-            photo = this.repository.create(photo);
-            return await this.repository.save(photo);
-        }
+        // }
     }
 
     delete(id: number) {

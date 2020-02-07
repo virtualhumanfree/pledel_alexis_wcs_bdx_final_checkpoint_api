@@ -25,7 +25,7 @@ export const NumeroController = (app: Application) => {
         res.send(await numeroService.create(numero));
     });
 
-    numeroRouter.put('/:id', attachCurrentUser, checkRole([UserRole.ADMIN, UserRole.USER]), async (req: Request, res: Response) => {
+    numeroRouter.put('/:id', async (req: Request, res: Response) => {
         const obj = await numeroService.update(parseInt(req.params.id, 10), req.body);
         res.send(obj);
     });
